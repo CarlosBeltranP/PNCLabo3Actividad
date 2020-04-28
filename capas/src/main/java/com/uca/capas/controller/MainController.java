@@ -1,5 +1,6 @@
 package com.uca.capas.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import com.uca.capas.domain.Student;
 
 @Controller
 public class MainController {
+	
+	private List<Student> students = new ArrayList< Student>();	
 	
 	@GetMapping (path = "/ejemplo1", produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
@@ -36,11 +39,19 @@ public class MainController {
 	
 	@PostMapping("/formData") //devuelve un ModelAndView
 	public ModelAndView procesar(Student student) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("prueba");
-		mav.addObject("estado", student.delegateEstado());
-		mav.addObject("student", student);
+		students.add(student);	
+		ModelAndView mav = new ModelAndView();		
+		mav.setViewName("index");
+		mav.addObject("student", new Student());
+		return mav;
 		
+	}
+	
+	@GetMapping("/listado")
+	public ModelAndView listado() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("listado");
+		mav.addObject("studentList", this.students);
 		return mav;
 		
 	}

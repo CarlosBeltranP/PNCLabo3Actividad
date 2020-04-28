@@ -48,6 +48,8 @@ public class Student {
 		this.estado = estado;
 	}
 	
-	
+	public String delegateEstado() {
+		return estado ? "Activo":"Inactivo";
+	}
 
 }

@@ -17,6 +17,8 @@ import com.uca.capas.domain.Student;
 public class MainController {
 	
 	private List<Student> students = new ArrayList< Student>();	
+
+	//************** Uso de @ResponseBody ************************
 	
 	@GetMapping (path = "/ejemplo1", produces = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
@@ -24,13 +26,15 @@ public class MainController {
 		return "Bienvenidos\n" + "Programación N-Capas";
 	}
 	
-	@GetMapping("/ejemplo2") //@ResponseBody puede devolver Jason
+	@GetMapping("/ejemplo2") //@ResponseBody puede devolver un Jason
 	public @ResponseBody List<Student> ejemplo2(){
 		return Arrays.asList( //lista de estudiantes 
 				new Student("Nombre1", "Apellido", "10/10/1992", "Carrera X ", true),
 				new Student("Nombre1", "Apellido", "10/10/1992", "Ingeniería en Limones", false)
 				);			
 	}
+	
+	//************** Uso de ModelAndView ************************
 	
 	@GetMapping("/inicio") //mi inicio
 	public String inicio(Student student) {
@@ -43,8 +47,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();		
 		mav.setViewName("index");
 		mav.addObject("student", new Student());
-		return mav;
-		
+		return mav;	
 	}
 	
 	@GetMapping("/listado")
